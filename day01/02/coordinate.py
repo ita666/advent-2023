@@ -9,7 +9,6 @@ def convert_string_l(input_string):
     for key in number_map.keys():
         #print(key)
         input_string = input_string.replace(key, number_map[key])
-    
     return input_string
 
 
@@ -20,7 +19,6 @@ def convert_string_r(input_string):
     #check for long string first to be sure to avoid partial conversion
     for key in number_map.keys():
         input_string = input_string.replace(key, number_map[key])
-    
     return input_string
 
 def get_coordinates_from_file(file_path):
