@@ -14,7 +14,7 @@ def convert_string_l(input_string):
 
 def convert_string_r(input_string):
     number_map = {
-        "Threight":'8', "eighthree":'3',"twone":'1',"oneight":"8","eightwo":'2',"nineight" :'8', "fiveight":'8' , "two":'2', "eight":'8', "three":'3', "nine":'9', "seven":'7', "six":'6', "four":'4', "five":'5', "one":'1'
+        "Threeight":'8', "eighthree":'3',"twone":'1',"oneight":"8","eightwo":'2',"nineight" :'8', "fiveight":'8' , "two":'2', "eight":'8', "three":'3', "nine":'9', "seven":'7', "six":'6', "four":'4', "five":'5', "one":'1'
     }
     #check for long string first to be sure to avoid partial conversion
     for key in number_map.keys():
