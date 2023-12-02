@@ -3,7 +3,7 @@ import os
 
 def convert_string_l(input_string):
     number_map = {
-        "Threight":'3', "eighthree":'8',"twone":'2',"oneight":"1","eightwo":'8',"nineight" :'9', "fiveight":'5' ,"one":'1',"eight":'8', "two":'2', "three":'3', "five":'5', "nine":'9', "four":'4', "six":'6', "seven":'7'
+        "Threeight":'3', "eighthree":'8',"twone":'2',"oneight":"1","eightwo":'8',"nineight" :'9', "fiveight":'5' ,"one":'1',"eight":'8', "two":'2', "three":'3', "five":'5', "nine":'9', "four":'4', "six":'6', "seven":'7'
     }
     #check for long string first to be sure to avoid partial conversion
     for key in number_map.keys():

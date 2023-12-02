@@ -1,6 +1,16 @@
 import os
 
 def get_coordinates_from_file(file_path):
+    """Summary or Description of the Function
+
+    Parameters:
+    argument1 (int): Description of arg1
+
+    Returns:
+    int:Returning value
+
+   """
+
     # Check if the file exists
     if not os.path.exists(file_path):
         print(f"File not found: {file_path}")
