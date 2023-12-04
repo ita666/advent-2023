@@ -37,35 +37,26 @@ def valid_adj_char(char):
 def check_eight_directions(array):
     directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]
     i = 0
-    sum = 0
-    while i < len(array):
-        num = []
+    for i in range(len(array)):
         j = 0
         while j < len(array[i]):
             if array[i][j] == '*':
-                num.append(array[i][j])
-                valid = False
                 for direction in directions:
                     x, y = i + direction[0], j + direction[1]
                     if 0 <= x < len(array) and 0 <= y < len(array[0]) and valid_adj_char(array[x][y]):
-                        valid = True
-                        break
-
-                if valid:
-                    k = 1
-                    while j + k < len(array[i]) and array[i][j + k].isdigit():
-                        num.append(array[i][j + k])
-                        k += 1
-                    j+= k
-                    print(num)
-                    sum +=int(''.join(num))
-                    num = []
-                j += 1
-            else:
-                num = []
-                j += 1  # Increment j even if not a digit is found
-        i += 1
-    return sum
+                        #print(x)
+                       # print(y)
+                        #print()
+                        #check the direction if it is a number using a decrement for loop
+                        for i in range(y, 0, -1 ):
+                            if array[x][y - i] != '.':
+                                print(f'test :{array[x][i]}')
+                        print(array[x][y])
+                        print()
+                        #if array[x][y] == '0':
+                print()
+                
+            j += 1
         
                 
 

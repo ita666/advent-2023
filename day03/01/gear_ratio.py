@@ -38,7 +38,7 @@ def check_eight_directions(array):
     directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]
     i = 0
     sum = 0
-    while i < len(array):
+    for i in range(len(array)):
         num = []
         j = 0
         while j < len(array[i]):
@@ -63,8 +63,7 @@ def check_eight_directions(array):
                 j += 1
             else:
                 num = []
-                j += 1  # Increment j even if not a digit is found
-        i += 1
+                j += 1 
     return sum
         
                 
