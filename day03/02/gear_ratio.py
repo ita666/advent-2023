@@ -1,26 +1,20 @@
 import os
 
-def makedoubleArray(pathFile):
-    # Check if the file exists
-    if not os.path.exists(pathFile):
-        print(f"File does not exist: {pathFile}")
-        return None
-    lines = 2
-    max_columns = 2
-    file = open("gear_ratio.txt", 'r')
-    for line in file:
-        lines += 1
-    max_columns += len(line.strip())
-    doubleArray = [['.' for _ in range(max_columns)] for _ in range(lines)]
-
-    # Fill the double array
-    with open(pathFile, 'r') as file:
-        for i in range(1, lines - 1):  # Exclude the extra lines
-            line = file.readline().strip()
-            for j in range(1, max_columns - 1):  # Exclude the extra columns
-                doubleArray[i][j] = line[j - 1]
-
-    return doubleArray
+def makeDoubleArray(pathFile):
+    # Read the file
+    with open(pathFile, "r") as file:
+        lines = file.readlines()
+    if not lines:
+        return []
+    # Determine the number of columns based on the first line
+    columns = len(lines[0].strip()) + 2 # Assuming each line ends with a newline character
+    # Initialize the array
+    array = [['.' for _ in range(columns)] for _ in range(len(lines) + 2)]
+    # Fill the array
+    for i, line in enumerate(lines):
+        for j, char in enumerate(line.strip()):
+            array[i + 1][j + 1] = char
+    return array
 
 def printDoubleArray(doubleArray):
     for i in range(len(doubleArray)):
@@ -33,10 +27,25 @@ def valid_adj_char(char):
         return True
     else:
         return False
-
+def find_complete_number(array, x, initial_y):
+    # Scan left from the initial position
+    left_number_str = ''
+    y = initial_y
+    while y >= 0 and array[x][y].isdigit():
+        left_number_str = array[x][y] + left_number_str
+        y -= 1
+    # Scan right from the position next to the initial position
+    right_number_str = ''
+    y = initial_y + 1
+    while y < len(array[0]) and array[x][y].isdigit():
+        right_number_str += array[x][y]
+        y += 1
+    # Combine the two parts
+    complete_number_str = left_number_str + right_number_str
+    return int(complete_number_str) if complete_number_str else None
+	
 def check_eight_directions(array):
     directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]
-    i = 0
     for i in range(len(array)):
         j = 0
         while j < len(array[i]):
@@ -44,22 +53,12 @@ def check_eight_directions(array):
                 for direction in directions:
                     x, y = i + direction[0], j + direction[1]
                     if 0 <= x < len(array) and 0 <= y < len(array[0]) and valid_adj_char(array[x][y]):
-                        #print(x)
-                       # print(y)
-                        #print()
-                        #check the direction if it is a number using a decrement for loop
-                        for i in range(y, 0, -1 ):
-                            if array[x][y - i] != '.':
-                                print(f'test :{array[x][i]}')
                         print(array[x][y])
+                        print(find_complete_number(array, x, y))
                         print()
-                        #if array[x][y] == '0':
-                print()
-                
             j += 1
-        
-                
 
-array = makedoubleArray("gear_ratio.txt")
+        
+array = makeDoubleArray("gear_ratio.txt")
 #printDoubleArray(array)
 print(check_eight_directions(array))

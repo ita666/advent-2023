@@ -1,26 +1,20 @@
 import os
 
-def makedoubleArray(pathFile):
-    # Check if the file exists
-    if not os.path.exists(pathFile):
-        print(f"File does not exist: {pathFile}")
-        return None
-    lines = 2
-    max_columns = 2
-    file = open("gear_ratio.txt", 'r')
-    for line in file:
-        lines += 1
-    max_columns += len(line.strip())
-    doubleArray = [['.' for _ in range(max_columns)] for _ in range(lines)]
-
-    # Fill the double array
-    with open(pathFile, 'r') as file:
-        for i in range(1, lines - 1):  # Exclude the extra lines
-            line = file.readline().strip()
-            for j in range(1, max_columns - 1):  # Exclude the extra columns
-                doubleArray[i][j] = line[j - 1]
-
-    return doubleArray
+def makeDoubleArray(pathFile):
+    # Read the file
+    with open(pathFile, "r") as file:
+        lines = file.readlines()
+    if not lines:
+        return []
+    # Determine the number of columns based on the first line
+    columns = len(lines[0].strip()) + 2 # Assuming each line ends with a newline character
+    # Initialize the array
+    array = [['.' for _ in range(columns)] for _ in range(len(lines) + 2)]
+    # Fill the array
+    for i, line in enumerate(lines):
+        for j, char in enumerate(line.strip()):
+            array[i + 1][j + 1] = char
+    return array
 
 def printDoubleArray(doubleArray):
     for i in range(len(doubleArray)):
@@ -68,6 +62,6 @@ def check_eight_directions(array):
         
                 
 
-array = makedoubleArray("gear_ratio.txt")
+array = makeDoubleArray("gear_ratio.txt")
 #printDoubleArray(array)
 print(check_eight_directions(array))
