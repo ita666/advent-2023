@@ -3,6 +3,7 @@ import os
 
 def getInput(pathFile):
     total_sum = 0
+    result_array = []
     with open(pathFile, "r") as file:
         lines = file.readlines()
     split_lines = [line.split(':') for line in lines]
@@ -19,9 +20,17 @@ def getInput(pathFile):
                 power = 0
                 break
             if number in values:
-                if found_count > 0: 
-                    power *= 2
-                found_count += 1 
+                found_count += 1
+        nb = 1
+        temp = []
+        while nb <= found_count:
+            nbb = 1
+            while nbb <= int(line[0]):
+                temp.append(nb + int(line[0]))
+                nbb += 1
+            nb += 1
+        result_array.extend(temp)
+        print(result_array)
         total_sum += power 
     return total_sum
 
