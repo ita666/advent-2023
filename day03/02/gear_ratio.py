@@ -46,17 +46,30 @@ def find_complete_number(array, x, initial_y):
 	
 def check_eight_directions(array):
     directions = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]
+    total_gear_ratio = 0
+    
     for i in range(len(array)):
         j = 0
         while j < len(array[i]):
             if array[i][j] == '*':
+                adjacent_numbers = []
                 for direction in directions:
                     x, y = i + direction[0], j + direction[1]
                     if 0 <= x < len(array) and 0 <= y < len(array[0]) and valid_adj_char(array[x][y]):
-                        print(array[x][y])
-                        print(find_complete_number(array, x, y))
-                        print()
+                        complete_number = find_complete_number(array, x, y)
+                        if complete_number is not None and complete_number not in adjacent_numbers:
+                            adjacent_numbers.append(complete_number)
+                        if len(adjacent_numbers) == 2:
+                            break
+
+                if len(adjacent_numbers) == 2:
+                    gear_ratio = adjacent_numbers[0] * adjacent_numbers[1]
+                    total_gear_ratio += gear_ratio
+                    print(f"Gear at ({i}, {j}) with adjacent numbers {adjacent_numbers} has ratio {gear_ratio}")
+
             j += 1
+
+    return total_gear_ratio
 
         
 array = makeDoubleArray("gear_ratio.txt")
