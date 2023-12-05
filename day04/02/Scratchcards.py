@@ -1,43 +1,22 @@
-import os
+def parse_scratch_card_data(file_path):
+    with open(file_path, 'r') as file:
+        cards = [line.split(":")[1].strip().split('|') for line in file]
 
+    card_scores = []
+    for index, (win_numbers, has_numbers) in enumerate(cards):
+        has_list = [int(num) for num in has_numbers.split()]
+        win_list = [int(num) for num in win_numbers.split()]
+        match_count = sum(1 for num in has_list if num in win_list)
+        card_scores.append(list(range(index + 2, index + 2 + match_count)))
 
-def getInput(pathFile):
-    total_sum = 0
-    result_array = []
-    with open(pathFile, "r") as file:
-        lines = file.readlines()
-    split_lines = [line.split(':') for line in lines]
-    split_lines = [[part.replace("Card ", "") for part in line] for line in split_lines]
-    for line in split_lines:
-        array = line[1].split("|")
-        game = array[0].split()
-        values = array[1].split()
+    processed_cards = list(range(1, len(cards) + 1))
+    idx = 0
+    while idx < len(processed_cards):
+        related_cards = card_scores[processed_cards[idx] - 1]
+        processed_cards.extend(related_cards)
+        idx += 1
 
-        power = 1
-        found_count = 0
-        for number in game:
-            if any(element in game for element in values) == False:
-                power = 0
-                break
-            if number in values:
-                found_count += 1
-        nb = 1
-        temp = []
-        while nb <= found_count:
-            nbb = 1
-            while nbb <= int(line[0]):
-                temp.append(nb + int(line[0]))
-                nbb += 1
-            nb += 1
-        result_array.extend(temp)
-        print(result_array)
-        total_sum += power 
-    return total_sum
+    return len(processed_cards)
 
-# Example usage
-print(getInput("Scratchcards.txt"))
-
-
-
-
-                
+total_card_count = parse_scratch_card_data('Scratchcards.txt')
+print(total_card_count)
